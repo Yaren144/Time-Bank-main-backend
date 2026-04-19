@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_20_180305) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_19_110622) do
+  create_table "service_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "message"
+    t.bigint "requester_id", null: false
+    t.bigint "service_id", null: false
+    t.string "status"
+    t.datetime "updated_at", null: false
+    t.index ["requester_id"], name: "index_service_requests_on_requester_id"
+    t.index ["service_id"], name: "index_service_requests_on_service_id"
+  end
+
+  create_table "services", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "category"
+    t.datetime "created_at", null: false
+    t.integer "credits"
+    t.text "description"
+    t.string "status"
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_services_on_user_id"
+  end
+
+  create_table "transactions", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.integer "amount"
+    t.datetime "created_at", null: false
+    t.string "description"
+    t.bigint "receiver_id", null: false
+    t.bigint "sender_id", null: false
+    t.string "transaction_type"
+    t.datetime "updated_at", null: false
+    t.index ["receiver_id"], name: "index_transactions_on_receiver_id"
+    t.index ["sender_id"], name: "index_transactions_on_sender_id"
+  end
+
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -21,4 +56,10 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_20_180305) do
     t.integer "time_credits"
     t.datetime "updated_at", null: false
   end
+
+  add_foreign_key "service_requests", "services"
+  add_foreign_key "service_requests", "users", column: "requester_id"
+  add_foreign_key "services", "users"
+  add_foreign_key "transactions", "users", column: "receiver_id"
+  add_foreign_key "transactions", "users", column: "sender_id"
 end

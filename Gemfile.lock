@@ -105,6 +105,7 @@ GEM
     et-orbi (1.4.0)
       tzinfo
     ffi (1.17.3-x64-mingw-ucrt)
+    
     ffi (1.17.3-x86_64-linux-gnu)
     fiddle (1.1.8)
     fugit (1.12.1)
