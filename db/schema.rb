@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_19_110622) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_06_131418) do
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.text "comment"
+    t.datetime "created_at", null: false
+    t.integer "rating"
+    t.bigint "reviewer_id", null: false
+    t.bigint "service_request_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reviewer_id"], name: "index_reviews_on_reviewer_id"
+    t.index ["service_request_id"], name: "index_reviews_on_service_request_id"
+  end
+
   create_table "service_requests", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "message"
@@ -47,6 +58,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_110622) do
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.string "email"
     t.string "first_name"
@@ -57,6 +69,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_19_110622) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "reviews", "service_requests"
+  add_foreign_key "reviews", "users", column: "reviewer_id"
   add_foreign_key "service_requests", "services"
   add_foreign_key "service_requests", "users", column: "requester_id"
   add_foreign_key "services", "users"
