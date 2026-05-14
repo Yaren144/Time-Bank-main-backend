@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get    "/admin/balances",          to: "admin#balances"
 
   get "/transactions", to: "transactions#index"
+  # Favorite users
+  patch "/profile/favorites", to: "users#update_favorites"
 
 
   resources :services, only: [ :index, :show, :create, :update, :destroy ] do
