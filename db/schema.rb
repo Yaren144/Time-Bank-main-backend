@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_05_06_131418) do
+ActiveRecord::Schema[8.1].define(version: 2026_05_08_123643) do
   create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.text "comment"
     t.datetime "created_at", null: false
@@ -61,6 +61,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_05_06_131418) do
     t.boolean "active", default: true
     t.datetime "created_at", null: false
     t.string "email"
+    t.json "favorite_provider_ids"
     t.string "first_name"
     t.string "last_name"
     t.string "password_digest"

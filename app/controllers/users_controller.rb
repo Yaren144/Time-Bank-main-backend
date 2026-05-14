@@ -8,7 +8,8 @@ class UsersController < ApplicationController
       first_name: @current_user.first_name,
       last_name: @current_user.last_name,
       role: @current_user.role,
-      time_credits: @current_user.time_credits
+      time_credits: @current_user.time_credits,
+      favorite_provider_ids: @current_user.favorite_provider_ids || []
     }, status: :ok
   end
 
@@ -26,6 +27,11 @@ class UsersController < ApplicationController
     else
       render json: { errors: @current_user.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+
+  def update_favorites
+  @current_user.update(favorite_provider_ids: params[:favorite_provider_ids])
+  render json: { favorite_provider_ids: @current_user.favorite_provider_ids }, status: :ok
   end
 
   private
