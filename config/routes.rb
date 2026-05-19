@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   delete "/admin/services/:id",      to: "admin#delete_service"
   get    "/admin/transactions",      to: "admin#transactions"
   get    "/admin/balances",          to: "admin#balances"
+  patch "/admin/users/:id/toggle-role", to: "admin#toggle_role"
 
   get "/transactions", to: "transactions#index"
   # Favorite users
@@ -37,4 +38,7 @@ end
 end
 
 get "/my-requests", to: "service_requests#my_requests"
+
+
+  post "add_credits", to: "credits#add"
 end

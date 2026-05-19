@@ -13,6 +13,13 @@ class AdminController < ApplicationController
     render json: { message: "User updated", user: serialize_user(user) }, status: :ok
   end
 
+def toggle_role
+  user = User.find(params[:id])
+  new_role = user.role == "admin" ? "user" : "admin"
+  user.update(role: new_role)
+  render json: { message: "Role updated", user: serialize_user(user) }, status: :ok
+end
+
   def services
     services = Service.includes(:user).all
     render json: services.map { |s| {
