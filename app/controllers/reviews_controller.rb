@@ -1,5 +1,5 @@
 class ReviewsController < ApplicationController
-  before_action :authenticate_request, only: [:create]
+  before_action :authenticate_request, only: [ :create ]
 
   def create
     req = ServiceRequest.find(params[:service_request_id])

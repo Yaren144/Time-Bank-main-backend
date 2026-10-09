@@ -1,7 +1,7 @@
 class ServicesController < ApplicationController
-  before_action :authenticate_request, except: [:index, :show]
-  before_action :set_service, only: [:show, :update, :destroy]
-  before_action :authorize_owner, only: [:update, :destroy]
+  before_action :authenticate_request, except: [ :index, :show ]
+  before_action :set_service, only: [ :show, :update, :destroy ]
+  before_action :authorize_owner, only: [ :update, :destroy ]
 
   def index
     services = Service.active
